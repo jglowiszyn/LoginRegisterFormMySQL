@@ -1,5 +1,7 @@
 package guis;
 
+import constans.CommonConstants;
+
 import javax.swing.*;
 
 public class Form extends JFrame {
@@ -11,6 +13,8 @@ public class Form extends JFrame {
         setLayout(null);
         setLocationRelativeTo(null);
         setResizable(false);
+
+        getContentPane().setBackground(CommonConstants.PRIMARY_COLOR);
 
     }
 }

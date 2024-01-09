@@ -1,5 +1,6 @@
 import guis.Form;
 import guis.LoginFormGUI;
+import guis.RegisterFormGUI;
 
 import javax.swing.*;
 
@@ -9,7 +10,8 @@ public class AppLauncher {
             @Override
             public void run(){
                 // instantiate a LoginFormGUI obj and make it visible
-                new LoginFormGUI().setVisible(true);
+             //   new LoginFormGUI().setVisible(true);
+                new RegisterFormGUI().setVisible(true);
             }
         });
     }
