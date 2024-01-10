@@ -1,3 +1,4 @@
+import db.MyJDBC;
 import guis.Form;
 import guis.LoginFormGUI;
 import guis.RegisterFormGUI;
@@ -9,9 +10,11 @@ public class AppLauncher {
         SwingUtilities.invokeLater(new Runnable(){
             @Override
             public void run(){
-                // instantiate a LoginFormGUI obj and make it visible
-             //   new LoginFormGUI().setVisible(true);
-                new RegisterFormGUI().setVisible(true);
+               //  new LoginFormGUI().setVisible(true);
+
+                //System.out.println(MyJDBC.checkUser("username"));
+
+                System.out.println(MyJDBC.register("username1234", "$ocz3wki"));
             }
         });
     }

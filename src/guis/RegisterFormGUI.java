@@ -4,6 +4,8 @@ import constans.CommonConstants;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RegisterFormGUI extends Form{
     public RegisterFormGUI() {
@@ -73,6 +75,15 @@ public class RegisterFormGUI extends Form{
         loginLabel.setHorizontalAlignment(SwingConstants.CENTER);
         loginLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         loginLabel.setForeground(CommonConstants.TEXT_COLOR);
+
+        loginLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                RegisterFormGUI.this.dispose();
+
+                new LoginFormGUI().setVisible(true);
+            }
+        });
         loginLabel.setBounds(125,600,250,30);
         add(loginLabel);
     }
