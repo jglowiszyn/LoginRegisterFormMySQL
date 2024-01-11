@@ -1,12 +1,11 @@
 package guis;
 
 import constans.CommonConstants;
+import db.MyJDBC;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 public class LoginFormGUI extends Form {
     public LoginFormGUI() {
@@ -56,6 +55,22 @@ public class LoginFormGUI extends Form {
            loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
            loginButton.setBackground(CommonConstants.TEXT_COLOR);
            loginButton.setBounds(125,520,250,50);
+           loginButton.addActionListener(new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                   String username = usernameField.getText();
+
+                   String password = new String(((JPasswordField) passwordField).getPassword());
+
+                   if (MyJDBC.validateLogin(username, password)){
+                       JOptionPane.showMessageDialog(LoginFormGUI.this,
+                               "Login Succesful!");
+                   } else {
+                       JOptionPane.showMessageDialog(LoginFormGUI.this,
+                               "Login Failed...");
+                   }
+               }
+           });
            add(loginButton);
 
            JLabel registerLabel = new JLabel("Not a user? Register Here");

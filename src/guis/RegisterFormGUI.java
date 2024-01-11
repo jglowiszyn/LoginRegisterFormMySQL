@@ -1,9 +1,12 @@
 package guis;
 
 import constans.CommonConstants;
+import db.MyJDBC;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -69,6 +72,35 @@ public class RegisterFormGUI extends Form{
         registerButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         registerButton.setBackground(CommonConstants.TEXT_COLOR);
         registerButton.setBounds(125,520,250,50);
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+
+                String password = new String(((JPasswordField) passwordField).getPassword());
+
+                String rePassword = new String(((JPasswordField) rePasswordField).getPassword());
+
+                if (validateUserInput(username, password, rePassword)) {
+                    if (MyJDBC.register(username, password)) {
+                        RegisterFormGUI.this.dispose();
+
+                        LoginFormGUI loginFormGUI = new LoginFormGUI();
+                        loginFormGUI.setVisible(true);
+
+                        JOptionPane.showMessageDialog(loginFormGUI,
+                                "Registered Account Successfully!");
+                    } else {
+                        JOptionPane.showMessageDialog(RegisterFormGUI.this,
+                                "Error: Username already taken");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(RegisterFormGUI.this,
+                            "Error: Username must be at least 6 characters \n" +
+                                    "and/or Passwords must match");
+                }
+            }
+        });
         add(registerButton);
 
         JLabel loginLabel = new JLabel("Have an account? Login here");
@@ -86,5 +118,15 @@ public class RegisterFormGUI extends Form{
         });
         loginLabel.setBounds(125,600,250,30);
         add(loginLabel);
+    }
+
+    private boolean validateUserInput(String username, String password, String rePassword){
+        if(username.length() == 0 || password.length() == 0 || rePassword.length() == 0) return false;
+
+        if(username.length() < 6) return false;
+
+        if(!password.equals(rePassword)) return false;
+
+        return true;
     }
 }
